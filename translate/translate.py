@@ -14,5 +14,5 @@ if __name__ == '__main__':
 
     reader = ReaderFactory().create(args.input.split('.')[-1])
     writer = WriterFactory().create(args.output.split('.')[-1])
-    with reader('input.txt') as rr, writer(args.output) as ww:
+    with reader(args.input) as rr, writer(args.output) as ww:
             ww.write(rr.read_all())
