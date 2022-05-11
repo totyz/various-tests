@@ -98,4 +98,6 @@ class ReaderFactory:
             'txt': TxtReader,
             'bin': BinReader,
         }
+        if reader_type not in readers:
+            raise ValueError(f"Reader '{reader_type}' is not supported yet")
         return readers[reader_type]

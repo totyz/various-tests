@@ -62,4 +62,6 @@ class WriterFactory:
         writers = {
             'txt': TxtWriter,
         }
+        if writer_type not in writers:
+            raise ValueError(f"Reader '{writer_type}' is not supported yet")
         return writers[writer_type]
