@@ -1,23 +1,18 @@
+import argparse
+
 from common.paths import INPUTS_PATH
 from common.reader import ReaderFactory
 from common.writer import WriterFactory
 
 if __name__ == '__main__':
-    # print([1,2,3] + [4,5,6])
-    # # print([1,2,3] + (4,5,6))
-    # a = [1]
-    # b = [2]
-    # c = (a,b)
-    # print(c)
-    # b = [3]
-    # print(c)
-    #
-    # d = [1,2,3,4]
-    # for i, el in enumerate(d):
-    #     d.pop(i)
-    # print(d)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--input", required=True,
+                        help="Pass input file from inputs folder")
+    parser.add_argument("--output", required=False,
+                        help="Save data to output folder to selected output file")
+    args = parser.parse_args()
 
-    reader = ReaderFactory().create('txt')
-    writer = WriterFactory().create('txt')
-    with reader('input.txt') as rr, writer('output.bin') as ww:
+    reader = ReaderFactory().create(args.input.split('.')[-1])
+    writer = WriterFactory().create(args.output.split('.')[-1])
+    with reader('input.txt') as rr, writer(args.output) as ww:
             ww.write(rr.read_all())
