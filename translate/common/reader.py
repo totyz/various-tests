@@ -12,6 +12,8 @@ class Reader(abc.ABC):
         self.logger = setup_logger('reader', logging.INFO)
         self._fd = None
         self._fn = INPUTS_PATH / fn
+        if not self._fn.exists():
+            raise IOError(f"{self._fn} does not exist")
 
     @abc.abstractmethod
     def open(self):

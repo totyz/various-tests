@@ -12,6 +12,8 @@ class Writer(abc.ABC):
         self.logger = setup_logger('writer', logging.DEBUG)
         self._fn_out = OUTPUTS_PATH / fn_out
         self._fd = None
+        if self._fn_out.exists():
+            raise IOError(f"{self._fn_out} exists")
 
     @abc.abstractmethod
     def open(self):
