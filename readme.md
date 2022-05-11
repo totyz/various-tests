@@ -1,6 +1,13 @@
 ## Test projects
 
+In tests folders are simple questions/tasks to solve.
+
 ### translate project
+
+Translate folder contains training program which read data from inputs folder do some operation on data and
+writes output to output folder.
+The program has bug introduced, so first quest is to debug and run it.
+It's intentionally created not pythonic, wrongly in some places.
 
 Exercises:
  1. Run translate.py script with input.bin and output.txt files
