@@ -58,7 +58,7 @@ class TxtReader(Reader):
             if lineK.startswith('K:'):
                 lineV: str = self._fd.readline()
                 self.logger.debug("read: " + lineV.replace('\n', ''))
-                yield lineK[2:], lineV[2:]
+                yield lineK[2:-1], lineV[2:-1]
 
 
 class BinReader(Reader):
