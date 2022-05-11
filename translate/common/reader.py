@@ -46,7 +46,7 @@ class TxtReader(Reader):
     def close(self):
         self._fd.close()
 
-    def read_element() -> Tuple:
+    def read_element(self) -> Tuple:
         self._fd.seek(0)
         while lineK := self._fd.readline():
             if lineK.startswith('K:'):
