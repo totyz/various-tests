@@ -38,6 +38,9 @@ class Reader(abc.ABC):
 
 
 class TxtReader(Reader):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.logger.setLevel(logging.DEBUG)
 
     def open(self):
         self._fd = open(self._fn)
@@ -49,8 +52,10 @@ class TxtReader(Reader):
     def read_element(self) -> Tuple:
         self._fd.seek(0)
         while lineK := self._fd.readline():
+            self.logger.debug("read: " + lineK.replace('\n', ''))
             if lineK.startswith('K:'):
                 lineV: str = self._fd.readline()
+                self.logger.debug("read: " + lineV.replace('\n', ''))
                 yield lineK[2:], lineV[2:]
 
 
