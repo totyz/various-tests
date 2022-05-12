@@ -58,7 +58,19 @@ class TxtWriter(Writer):
 
 
 class BinWriter(Writer):
-    pass
+    def open(self):
+        self._fd = open(self._fn_out, mode='wb')
+        return self._fd
+
+    def close(self):
+        self._fd.close()
+
+    def write(self, data: Union[List[KeyValue], Tuple]):
+        if isinstance(data, KeyValue):
+            data = [data]
+        for el in data:
+            self._fd.write(('#' + el.key + ':' + el.value).encode('UTF-8'))
+        # for_test - change it into list comprehension
 
 
 class WriterFactory:
@@ -66,6 +78,7 @@ class WriterFactory:
     def create(writer_type):
         writers = {
             'txt': TxtWriter,
+            'bin': BinWriter,
         }
         if writer_type not in writers:
             raise ValueError(f"Reader '{writer_type}' is not supported yet")
