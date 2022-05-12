@@ -1,7 +1,7 @@
 import abc
 import logging
 from pathlib import Path
-from typing import List
+from typing import List, Tuple, Union
 
 from .common import setup_logger
 from .paths import OUTPUTS_PATH
@@ -48,7 +48,9 @@ class TxtWriter(Writer):
     def close(self):
         self._fd.close()
 
-    def write(self, data: List):
+    def write(self, data: Union[List, Tuple]):
+        if isinstance(data, tuple):
+            data = [data]
         for el in data:
             key, value = el
             self._fd.write('K:' + key + '\n')
