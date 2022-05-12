@@ -1,4 +1,10 @@
 import logging
+from typing import NamedTuple
+
+
+class KeyValue(NamedTuple):
+    key: str
+    value: str
 
 
 class CustomFormatter(logging.Formatter):

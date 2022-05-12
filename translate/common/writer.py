@@ -3,7 +3,7 @@ import logging
 from pathlib import Path
 from typing import List, Tuple, Union
 
-from .common import setup_logger
+from .common import setup_logger, KeyValue
 from .paths import OUTPUTS_PATH
 
 
@@ -48,13 +48,12 @@ class TxtWriter(Writer):
     def close(self):
         self._fd.close()
 
-    def write(self, data: Union[List, Tuple]):
-        if isinstance(data, tuple):
+    def write(self, data: Union[List[KeyValue], Tuple]):
+        if isinstance(data, KeyValue):
             data = [data]
         for el in data:
-            key, value = el
-            self._fd.write('K:' + key + '\n')
-            self._fd.write('V:' + value + '\n')
+            self._fd.write('K:' + el.key + '\n')
+            self._fd.write('V:' + el.value + '\n')
         # for_test - change it into list comprehension
 
 

@@ -2,7 +2,7 @@ import abc
 import logging
 from typing import Tuple, List
 
-from .common import setup_logger
+from .common import setup_logger, KeyValue
 from .paths import INPUTS_PATH
 
 
@@ -61,7 +61,7 @@ class TxtReader(Reader):
             if lineK.startswith('K:'):
                 lineV: str = self._fd.readline()
                 self.logger.debug("read: " + lineV.replace('\n', ''))
-                yield lineK[2:-1], lineV[2:-1]
+                yield KeyValue(lineK[2:-1], lineV[2:-1])
 
 
 class BinReader(Reader):
@@ -91,7 +91,7 @@ class BinReader(Reader):
                 found = True
             if found:
                 found = False
-                yield key.decode('utf-8'), value.decode('utf-8')
+                yield KeyValue(key.decode('utf-8'), value.decode('utf-8'))
 
 
 class ReaderFactory:
