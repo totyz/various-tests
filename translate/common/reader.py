@@ -87,8 +87,9 @@ class BinReader(Reader):
                     if v == b'#':
                         break
                     value += v
-                self._fd.seek(-1, 1)
-                found = True
+                if key != b'':
+                    self._fd.seek(-1, 1)
+                    found = True
             if found:
                 found = False
                 yield KeyValue(key.decode('utf-8'), value.decode('utf-8'))
