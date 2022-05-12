@@ -15,6 +15,10 @@ class Writer(abc.ABC):
         if self._fn_out.exists():
             raise IOError(f"{self._fn_out} exists")
 
+    @property
+    def output_file(self):
+        return self._fn_out
+
     @abc.abstractmethod
     def open(self):
         pass

@@ -14,6 +14,10 @@ class Reader(abc.ABC):
         if not self._fn.exists():
             raise IOError(f"{self._fn} does not exist")
 
+    @property
+    def input_file(self):
+        return self._fn
+
     @abc.abstractmethod
     def open(self):
         pass
