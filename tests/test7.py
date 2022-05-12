@@ -6,7 +6,12 @@
 # data: '131' -> '12 1'
 
 def hex_dec_str(data: str) -> str:
-    pass
+    it = iter(data)
+    ret = []
+    for a, b in zip(it, it):
+        ret.append(a + b)
+    ret.append(data[-1]) if len(data) % 2 == 1 else None
+    return ' '.join(ret)
 
 if __name__ == '__main__':
     print(hex_dec_str('1'))
