@@ -51,10 +51,7 @@ class TxtWriter(Writer):
     def write(self, data: Union[List[KeyValue], Tuple]):
         if isinstance(data, KeyValue):
             data = [data]
-        for el in data:
-            self._fd.write('K:' + el.key + '\n')
-            self._fd.write('V:' + el.value + '\n')
-        # for_test - change it into list comprehension
+        [self._fd.write('K:' + el.key + '\n' + 'V:' + el.value + '\n') for el in data]
 
 
 class BinWriter(Writer):
@@ -68,9 +65,7 @@ class BinWriter(Writer):
     def write(self, data: Union[List[KeyValue], Tuple]):
         if isinstance(data, KeyValue):
             data = [data]
-        for el in data:
-            self._fd.write(('#' + el.key + ':' + el.value).encode('UTF-8'))
-        # for_test - change it into list comprehension
+        [self._fd.write(('#' + el.key + ':' + el.value).encode('UTF-8')) for el in data]
 
 
 class WriterFactory:
