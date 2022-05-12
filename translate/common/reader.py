@@ -72,27 +72,28 @@ class BinReader(Reader):
     def close(self):
         self._fd.close()
 
+    def _read_until(self, eol_char: str) -> str:
+        ret = b''
+        while k := self._fd.read(1):
+            if k == eol_char.encode('UTF-8'):
+                break
+            ret += k
+        return ret.decode('UTF-8')
+
     def read_element(self):
         self._fd.seek(0)
         found = False
         while c := self._fd.read(1):
             if c == b'#':  # K: starts
-                key = b''
-                while k := self._fd.read(1):  # for_test - how to normalize, make the method more readable
-                    if k == b':':
-                        break
-                    key += k
-                value = b''
-                while v := self._fd.read(1):
-                    if v == b'#':
-                        break
-                    value += v
-                if key != b'':
-                    self._fd.seek(-1, 1)
-                    found = True
+                key = self._read_until(':')
+                if key == '':
+                    break
+                value = self._read_until('#')
+                self._fd.seek(-1, 1)
+                found = True
             if found:
                 found = False
-                yield KeyValue(key.decode('utf-8'), value.decode('utf-8'))
+                yield KeyValue(key, value)
 
 
 class ReaderFactory:
