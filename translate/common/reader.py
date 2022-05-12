@@ -2,7 +2,7 @@ import abc
 import logging
 from typing import Tuple, List
 
-from .common import setup_logger, KeyValue
+from .common import setup_logger, KeyValue, lower_case
 from .paths import INPUTS_PATH
 
 
@@ -54,6 +54,7 @@ class TxtReader(Reader):
     def close(self):
         self._fd.close()
 
+    @lower_case
     def read_element(self) -> Tuple:
         self._fd.seek(0)
         while lineK := self._fd.readline():
@@ -80,6 +81,7 @@ class BinReader(Reader):
             ret += k
         return ret.decode('UTF-8')
 
+    @lower_case
     def read_element(self):
         self._fd.seek(0)
         found = False

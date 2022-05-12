@@ -1,4 +1,5 @@
 import logging
+from functools import wraps
 from typing import NamedTuple
 
 
@@ -42,3 +43,11 @@ def setup_logger(name, level):
     stdout_handler.setFormatter(CustomFormatter(loggerFormat))
     logger.addHandler(stdout_handler)
     return logger
+
+
+def lower_case(cmd):
+    @wraps(cmd)
+    def inner(*args, **kwargs):
+        for el in cmd(*args, **kwargs):
+            yield KeyValue(el.key, el.value.lower())
+    return inner
