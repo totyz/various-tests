@@ -10,7 +10,7 @@ The program has bug introduced, so first quest is to debug and run it.
 It's intentionally created not pythonic, wrongly in some places.
 
 Exercises:
- 1. Run translate.py script with input.bin and output.txt files
+ 1. Run translate.py script with input.txt and output.txt files
  2. Fix exception
  3. Add logger DEBUG message which print each read line in TxtReader.read_element() method
  4. Raise exception when input file in Reader object cannot be found. File not exists
